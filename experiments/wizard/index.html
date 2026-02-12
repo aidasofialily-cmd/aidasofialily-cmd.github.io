@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Lab: CSS Wizardry</title>
+    <style>
+        :root {
+            --wiz-purple: #673ab7;
+            --skin: #ffdbac;
+            --beard: #ffffff;
+            --bg: #1a1a2e;
+        }
+
+        body {
+            background-color: var(--bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Wizard Container */
+        .wizard-container {
+            position: relative;
+            width: 120px;
+            height: 150px;
+            animation: float 2.5s ease-in-out infinite;
+        }
+
+        /* Pointy Hat */
+        .hat {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 60px solid transparent;
+            border-right: 60px solid transparent;
+            border-bottom: 100px solid var(--wiz-purple);
+            top: 0;
+            z-index: 2;
+        }
+
+        /* Brim of the Hat */
+        .hat::after {
+            content: '';
+            position: absolute;
+            bottom: -110px;
+            left: -70px;
+            width: 140px;
+            height: 25px;
+            background: var(--wiz-purple);
+            border-radius: 50%;
+        }
+
+        /* Face */
+        .face {
+            position: absolute;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 30px;
+            background: var(--skin);
+            z-index: 1;
+        }
+
+        .eye {
+            position: absolute;
+            top: 12px;
+            width: 6px;
+            height: 6px;
+            background: #000;
+            border-radius: 50%;
+            animation: blink 4s infinite;
+        }
+
+        .eye.left { left: 10px; }
+        .eye.right { right: 10px; }
+
+        /* Beard */
+        .beard {
+            position: absolute;
+            top: 115px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 80px;
+            background: var(--beard);
+            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-25px); }
+        }
+
+        @keyframes blink {
+            0%, 90%, 100% { transform: scaleY(1); }
+            95% { transform: scaleY(0.1); }
+        }
+
+        h2 {
+            color: white;
+            margin-top: 60px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wizard-container">
+        <div class="hat"></div>
+        <div class="face">
+            <div class="eye left"></div>
+            <div class="eye right"></div>
+        </div>
+        <div class="beard"></div>
+    </div>
+
+    <h2>Casting Spells</h2>
+
+</body>
+</html>
