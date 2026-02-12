@@ -3,7 +3,7 @@ email: aidasofialily@gmail.com
 description: >-
   A collection of technical deep-dives and creative coding experiments.
 baseurl: "" 
-url: "https://aidasofialily.github.io"
+url: "https://aidasofialily-cmd.github.io"
 
 # Build settings
 theme: minima
