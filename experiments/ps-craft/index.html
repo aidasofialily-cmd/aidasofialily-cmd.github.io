@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Lab: Raycasting Engine</title>
+    <style>
+        body { background: #000; color: #0f0; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: monospace; overflow: hidden; }
+        canvas { border: 2px solid #333; image-rendering: pixelated; width: 640px; height: 400px; }
+        .ui { margin-top: 10px; text-align: center; color: #888; }
+    </style>
+</head>
+<body>
+    <div class="ui">FPS-CRAFT ENGINE | ARROWS TO MOVE</div>
+    <canvas id="screen" width="320" height="200"></canvas>
+    <div class="ui" id="stats">X: 0.0 Y: 0.0</div>
+
+<script>
+    const canvas = document.getElementById('screen');
+    const ctx = canvas.getContext('2d');
+    const stats = document.getElementById('stats');
+
+    // 1 = Wall, 0 = Empty
+    const map = [
+        [1,1,1,1,1,1,1,1,1,1],
+        [1,0,0,0,0,0,0,0,0,1],
+        [1,0,1,1,0,1,0,1,0,1],
+        [1,0,0,0,0,0,0,1,0,1],
+        [1,0,1,0,1,1,0,0,0,1],
+        [1,1,1,1,1,1,1,1,1,1]
+    ];
+
+    let player = { x: 2, y: 2, dir: 0, fov: Math.PI / 3 };
+    const keys = {};
+
+    window.onkeydown = (e) => keys[e.code] = true;
+    window.onkeyup = (e) => keys[e.code] = false;
+
+    function render() {
+        // Movement logic
+        if (keys['ArrowLeft']) player.dir -= 0.05;
+        if (keys['ArrowRight']) player.dir += 0.05;
+        if (keys['ArrowUp']) {
+            player.x += Math.cos(player.dir) * 0.05;
+            player.y += Math.sin(player.dir) * 0.05;
+            if(map[Math.floor(player.y)][Math.floor(player.x)] == 1) {
+                player.x -= Math.cos(player.dir) * 0.05; player.y -= Math.sin(player.dir) * 0.05;
+            }
+        }
+        if (keys['ArrowDown']) {
+            player.x -= Math.cos(player.dir) * 0.05;
+            player.y -= Math.sin(player.dir) * 0.05;
+        }
+
+        // Background (Sky and Floor)
+        ctx.fillStyle = '#111'; ctx.fillRect(0, 0, 320, 100);
+        ctx.fillStyle = '#222'; ctx.fillRect(0, 100, 320, 100);
+
+        // Raycasting
+        for (let i = 0; i < 320; i++) {
+            let rayAngle = (player.dir - player.fov / 2) + (i / 320) * player.fov;
+            let distance = 0;
+            let hit = false;
+
+            while (!hit && distance < 10) {
+                distance += 0.05;
+                let tx = Math.floor(player.x + Math.cos(rayAngle) * distance);
+                let ty = Math.floor(player.y + Math.sin(rayAngle) * distance);
+                if (map[ty][tx] === 1) hit = true;
+            }
+
+            // Fix fisheye effect
+            distance *= Math.cos(rayAngle - player.dir);
+            let wallHeight = Math.min(200, 200 / distance);
+
+            // Shading
+            let color = 255 - (distance * 20);
+            ctx.fillStyle = `rgb(${color/4}, ${color}, ${color/2})`;
+            ctx.fillRect(i, (200 - wallHeight) / 2, 1, wallHeight);
+        }
+        
+        stats.innerText = `POS: ${player.x.toFixed(2)}, ${player.y.toFixed(2)}`;
+        requestAnimationFrame(render);
+    }
+
+    render();
+</script>
+</body>
+</html>
