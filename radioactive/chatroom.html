@@ -1,0 +1,132 @@
+---
+layout: page
+title: "CONTAINMENT-ZONE"
+permalink: /chatroom/
+---
+
+<div class="radioactive-wrap">
+  <div class="hazard-bar"></div>
+
+  <div id="status-light" class="status-light"></div>
+
+  <div id="terminal-screen" class="terminal-screen">
+    <div class="log-entry">System Boot Complete</div>
+    <div class="log-entry">LOCATION: Batu Pahat</div>
+    <div class="log-entry">Link Estabilshed</div>
+  </div>
+
+  <div class="input-section">
+    <div class="input-container">
+      <input type="text" id="terminal-input" placeholder="DATA-ENTRY" autocomplete="off">
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Base Container */
+  .radioactive-wrap {
+    background: #000000;
+    border: 2px solid #333333;
+    margin: 40px 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Pure CSS Hazard Stripes (No Images/Characters) */
+  .hazard-bar {
+    height: 12px;
+    background: #ffcc00;
+    background-image: linear-gradient(
+      45deg, 
+      #000 25%, 
+      transparent 25%, 
+      transparent 50%, 
+      #000 50%, 
+      #000 75%, 
+      transparent 75%, 
+      transparent
+    );
+    background-size: 24px 24px;
+  }
+
+  /* Blinking Indicator Light */
+  .status-light {
+    width: 8px;
+    height: 8px;
+    background: #ff0000;
+    margin: 10px 0 0 20px;
+    animation: pulse-effect 1.2s infinite;
+  }
+
+  @keyframes pulse-effect {
+    0% { opacity: 1; }
+    50% { opacity: 0.2; }
+    100% { opacity: 1; }
+  }
+
+  .terminal-screen {
+    height: 320px;
+    padding: 20px;
+    overflow-y: auto;
+    color: #ffcc00; /* Amber Warning */
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    background: #080808;
+  }
+
+  .log-entry { margin-bottom: 6px; }
+
+  .input-section {
+    background: #151515;
+    padding: 15px 20px;
+    border-top: 1px solid #222;
+  }
+
+  #terminal-input {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    width: 100%;
+    font-family: inherit;
+    outline: none;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  /* Custom Scrollbar for OS X 10.10 */
+  .terminal-screen::-webkit-scrollbar { width: 4px; }
+  .terminal-screen::-webkit-scrollbar-thumb { background: #444; }
+</style>
+
+<script>
+  (function() {
+    const inputField = document.getElementById('terminal-input');
+    const screenDisplay = document.getElementById('terminal-screen');
+
+    inputField.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter' && inputField.value.trim() !== '') {
+        const data = inputField.value;
+        
+        // Create Log Entry
+        const newEntry = document.createElement('div');
+        newEntry.className = 'log-entry';
+        newEntry.style.color = '#ffffff';
+        newEntry.innerText = "> " + data;
+        screenDisplay.appendChild(newEntry);
+
+        // Auto System Response
+        setTimeout(function() {
+          const systemResp = document.createElement('div');
+          systemResp.className = 'log-entry';
+          systemResp.innerText = "Data Logged Sucessfully";
+          screenDisplay.appendChild(systemResp);
+          screenDisplay.scrollTop = screenDisplay.scrollHeight;
+        }, 500);
+
+        inputField.value = '';
+        screenDisplay.scrollTop = screenDisplay.scrollHeight;
+      }
+    });
+  })();
+</script>
