@@ -1,0 +1,51 @@
+{
+  "name": "aidasofialily-cmd.github.io",
+  "version": "1.0.0",
+  "lockfileVersion": 3,
+  "requires": true,
+  "packages": {
+    "": {
+      "name": "aidasofialily-cmd.github.io",
+      "version": "1.0.0",
+      "license": "MIT",
+      "devDependencies": {
+        "eslint": "8.57.0",
+        "gh-pages": "6.1.1",
+        "rimraf": "5.0.5"
+      }
+    },
+    "node_modules/eslint": {
+      "version": "8.57.0",
+      "resolved": "https://registry.npmjs.org/eslint/-/eslint-8.57.0.tgz",
+      "integrity": "sha512-dZ6+88noMTHd20SYVNIyZKuKzSVfAlGCRlPChORqZpLQQV6oyL3FpRiLyX62FL6vX/+JI80vcaiKYQsBB176w==",
+      "dev": true,
+      "bin": {
+        "eslint": "bin/eslint.js"
+      }
+    },
+    "node_modules/gh-pages": {
+      "version": "6.1.1",
+      "resolved": "https://registry.npmjs.org/gh-pages/-/gh-pages-6.1.1.tgz",
+      "integrity": "sha512-YmX7S5VfUajl9rtYsuXscqI0i73U21iS8W2CixI4DshYhIq9shmGpxmOajD8F5yJm3X1yTq4W62Uq0XlU8pA==",
+      "dev": true,
+      "dependencies": {
+        "async": "^3.2.4",
+        "commander": "^11.0.0",
+        "email-addresses": "^5.0.0",
+        "filenamify": "^5.1.1",
+        "find-cache-dir": "^4.0.0",
+        "fs-extra": "^11.1.1",
+        "globby": "^11.1.0"
+      }
+    },
+    "node_modules/rimraf": {
+      "version": "5.0.5",
+      "resolved": "https://registry.npmjs.org/rimraf/-/rimraf-5.0.5.tgz",
+      "integrity": "sha512-CqY8XNS7jZpP8asVpClT1S3pG688NnS8Uu5zAt49iA+u9yD9u73xY0H+5S0D1V8S7yN2T3vW6v9p4C8uE1uA==",
+      "dev": true,
+      "bin": {
+        "rimraf": "bin/rimraf.js"
+      }
+    }
+  }
+}
